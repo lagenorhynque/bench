@@ -17,10 +17,7 @@
 (defn fn1 []
   (let [_random (new Random)
         _key (str "key" (.nextInt _random _keyRange))]
-    (let [_oldValue (get @mapref1 _key)]
-      (if (nil? _oldValue)
-        (swap! mapref1 assoc _key 1)
-        (swap! mapref1 assoc _key (+ 1 _oldValue))))))
+    (swap! mapref1 update _key (fnil inc 0))))
 
 (defn fn2 []
   (dotimes [_index _repeat]
